@@ -31,9 +31,9 @@ public class Enemy : MonoBehaviour
         _currentHealth = _health;
     }
 
-    public void TakeDamage(Vector3 mousePosition)
+    public void TakeDamage(int demage, Vector3 mousePosition)
     {
-        _currentHealth--;
+        _currentHealth -= demage;
         _visualEffector.PlayDamageEffects(mousePosition);
         {
             if (_currentHealth <= 0)

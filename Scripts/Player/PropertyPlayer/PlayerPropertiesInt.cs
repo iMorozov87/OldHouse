@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PlayerPropertiesInt")]
-public class PlayerPropertiesInt: ScriptableObject
+[System.Serializable]
+public class PlayerPropertiesInt
 {
     public string Name;
     public int CurrentValue;
@@ -18,8 +18,8 @@ public class PlayerPropertiesInt: ScriptableObject
     {
         int magnification = 2;
         CurrentValue += ValueStep;
-        NumberOfImprovements++;
+        NumberOfImprovements++;       
         Price *= magnification;
-        NextPrice *= Price* magnification;
+        NextPrice = Price * magnification;
     }
 }

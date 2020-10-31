@@ -17,6 +17,7 @@ public class DataSaver : MonoBehaviour
         LoadGame();
         _player.SetSaveData(this);
     }
+
     private void OnEnable()
     {
         _player.Died += SaveGame;
@@ -31,6 +32,7 @@ public class DataSaver : MonoBehaviour
     {
         PlayerPrefs.SetInt("Money", _player.Money);
         PlayerPrefs.SetInt("Score", _player.Score);
+        PlayerPrefs.Save();
     }
 
     private void LoadGame()

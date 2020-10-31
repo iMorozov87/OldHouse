@@ -10,6 +10,7 @@ public class PauseButton : Menu
 {   
     [SerializeField] private TMP_Text _startGameButtonText;
     [SerializeField] private GameObject _menuButtonsContainer;
+    [SerializeField] private GameObject _enhancerDisplay;
     [SerializeField] private Button _continueButton;
     [SerializeField] private string _newLabelButtonText;
 
@@ -42,6 +43,7 @@ public class PauseButton : Menu
     {       
         OpenPanel(_menuButtonsContainer);
         OpenPanel(_continueButton.gameObject);
+        OpenPanel(_enhancerDisplay.gameObject);
         _startGameButtonText.text = _newLabelButtonText;
         StopTime();
     }

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker))] 
+[RequireComponent(typeof(PlayerMover), typeof(PlayerAttacker))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private VisualEffector _visualEffector;
-    [SerializeField]private int _health = 5;
+    [SerializeField] private int _health = 5;
 
     private PlayerMover _playerMover;
     private PlayerAttacker _playerAttacker;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public int Score => _score;
 
     public event UnityAction<int> MoneyChanged;
-    public event UnityAction<int> HealhChanged;
+    public event UnityAction<int> HealthChanged;
     public event UnityAction<int> ScoreChanged;
     public event UnityAction Died;
 
@@ -38,23 +38,24 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         _playerAttacker.Attaked -= AddScore;
+    }  
+
+    private void Start()
+    {
+        HealthChanged?.Invoke(_health);
+        ScoreChanged?.Invoke(_score);
+        MoneyChanged?.Invoke(_money);
     }
 
     public bool TryPickMoney(int price)
     {
-        if(price <=_money)
+        if (price <= _money)
         {
             _money -= price;
+            MoneyChanged?.Invoke(_money);
             return true;
         }
         return false;
-    }
-
-    private void Start()
-    {
-        HealhChanged?.Invoke(_health);
-        ScoreChanged?.Invoke(_score);
-        MoneyChanged?.Invoke(_money); 
     }
 
     private void AddScore(int score)
@@ -66,15 +67,15 @@ public class Player : MonoBehaviour
     public void TakeDemage()
     {
         _health--;
-        HealhChanged?.Invoke(_health);
+        HealthChanged?.Invoke(_health);
         _visualEffector.PlayDamageEffects();
         if (_health <= 0)
-        {            
+        {
             Died?.Invoke();
             Die();
         }
     }
-    
+
     public void AddMoney(Money money)
     {
         _money += money.NumberCounts;
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour
 
     public void SetSaveData(DataSaver dataSaver)
     {
-        _money= dataSaver.Money;
+        _money = dataSaver.Money;
         _score = dataSaver.Score;
     }
 
@@ -93,5 +94,11 @@ public class Player : MonoBehaviour
         _playerMover.enabled = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
         GetComponent<PlayerInput>().enabled = false;
+    }
+
+    public void IncreaseHealth()
+    {
+        _health++;
+        HealthChanged?.Invoke(_health);
     }
 }

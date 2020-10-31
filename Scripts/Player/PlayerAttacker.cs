@@ -26,8 +26,13 @@ public class PlayerAttacker : MonoBehaviour
 
         if (hit.collider != null && hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.TakeDamage(worldMousePosition);
+            enemy.TakeDamage(_demage, worldMousePosition);
             Attaked?.Invoke(enemy.ScorePerClick);
         }
-    }  
+    }
+
+    public void IncreaseDemage()
+    {
+        _demage++;
+    }
 }

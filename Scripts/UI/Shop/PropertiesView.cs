@@ -35,6 +35,5 @@ public class PropertiesView : MonoBehaviour
         _price.text = playerProperties.NextPrice.ToString();
         _label.text = playerProperties.Name;
         _playerProperties = playerProperties;
-    }   
-
+    }
 }
